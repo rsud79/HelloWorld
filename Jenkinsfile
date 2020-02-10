@@ -14,6 +14,7 @@ pipeline {
 			echo 'Completed Build stage'
 			script {
 			    last_started = env.STAGE_NAME
+			    echo last_started
 			}
 
 			comment_issues('${last_started}')
@@ -26,6 +27,8 @@ pipeline {
 			echo 'Completed Deploy stage'
 			script {
 			    last_started = env.STAGE_NAME
+			    echo last_started
+			    
 			}
 			comment_issues('${last_started}')
          }
