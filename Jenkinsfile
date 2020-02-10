@@ -20,12 +20,8 @@ pipeline {
         }
 
         stage ('Install Stage') {
-
-            steps {
-                withMaven(maven : "${VERSION}") {
-                    sh 'mvn clean install'
-                }
-            }
+            echo sh(script: 'env|sort', returnStdout: true)
+            
         }
     }
 }
