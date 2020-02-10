@@ -25,12 +25,7 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Deploy stage'
-			script {
-			    last_started = env.STAGE_NAME
-			    echo last_started
-			    
-			}
-			comment_issues(last_started)
+			comment_issues(env.STAGE_NAME)
          }
       }
    }
