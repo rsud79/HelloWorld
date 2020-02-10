@@ -11,7 +11,14 @@ pipeline {
          steps {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
-			echo 'Complete'
+			echo 'Completed Build stage'
+         }
+      }
+      stage('Deploy') {
+         steps {
+            git 'https://github.com/rsud79/HelloWorld.git'
+            sh "mvn clean install"
+			echo 'Completed Deploy stage'
          }
       }
    }
