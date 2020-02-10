@@ -12,8 +12,11 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Build stage'
-			echo name
-			comment_issues('${STAGE_NAME}')
+			script {
+			    last_started = env.STAGE_NAME
+			}
+
+			comment_issues('$last_started')
          }
       }
       stage('Deploy') {
@@ -21,8 +24,10 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Deploy stage'
-			echo name
-			comment_issues('${STAGE_NAME}')
+			script {
+			    last_started = env.STAGE_NAME
+			}
+			comment_issues('$last_started')
          }
       }
    }
