@@ -9,19 +9,19 @@ pipeline {
    stages {
       stage('Build') {
          steps {
-            name: STAGE_NAME
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Build stage'
+			echo name
 			comment_issues('${STAGE_NAME}')
          }
       }
       stage('Deploy') {
          steps {
-         	name: STAGE_NAME
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Deploy stage'
+			echo name
 			comment_issues('${STAGE_NAME}')
          }
       }
