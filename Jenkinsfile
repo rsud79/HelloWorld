@@ -12,6 +12,7 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Build stage'
+			comment_issues()
          }
       }
       stage('Deploy') {
@@ -19,13 +20,14 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Deploy stage'
+			comment_issues()
          }
       }
-      stage('JIRA') {
-          steps {
-              comment_issues()
-          }
-      }
+      //stage('JIRA') {
+      //    steps {
+      //        comment_issues()
+      //    }
+      //}
    }
 }
 
@@ -39,7 +41,7 @@ void comment_issues() {
             echo msg
             msg.findAll(issue_pattern).each {
                 // Actually post a comment
-                id -> jiraAddComment idOrKey: id, comment: 'Hi there!', site: 'JIRA'
+                id -> jiraAddComment idOrKey: id, comment: msg, site: 'JIRA'
             }
         }
     }
