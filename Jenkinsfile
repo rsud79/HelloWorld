@@ -36,6 +36,7 @@ void comment_issues() {
     currentBuild.changeSets.each {changeSet ->
         changeSet.each { commit ->
             String msg = commit.getMsg()
+            echo msg
             msg.findAll(issue_pattern).each {
                 // Actually post a comment
                 id -> jiraAddComment idOrKey: id, comment: 'Hi there!'
