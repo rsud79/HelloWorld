@@ -16,7 +16,7 @@ pipeline {
 			    last_started = env.STAGE_NAME
 			}
 
-			comment_issues('$last_started')
+			comment_issues('${last_started}')
          }
       }
       stage('Deploy') {
@@ -27,7 +27,7 @@ pipeline {
 			script {
 			    last_started = env.STAGE_NAME
 			}
-			comment_issues('$last_started')
+			comment_issues('${last_started}')
          }
       }
    }
