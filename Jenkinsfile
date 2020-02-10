@@ -17,6 +17,7 @@ pipeline {
                     echo 'hello'
                     echo "${VERSION}"
                     //sh 'mvn clean install'
+                    sh 'printenv'
                 }
             }
         }
