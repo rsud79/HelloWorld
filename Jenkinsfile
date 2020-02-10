@@ -12,7 +12,7 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Build stage'
-			comment_issues('${STAGE_NAME}')
+			comment_issues('${env.STAGE_NAME}')
          }
       }
       stage('Deploy') {
@@ -20,7 +20,7 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Deploy stage'
-			comment_issues('${STAGE_NAME}')
+			comment_issues('${env.STAGE_NAME}')
          }
       }
    }
@@ -37,7 +37,7 @@ void comment_issues(stageName) {
             echo msg
             msg.findAll(issue_pattern).each {
                 // Actually post a comment
-                id -> jiraAddComment idOrKey: id, comment: msg+ 'in '+stageName, site: 'JIRA'
+                id -> jiraAddComment idOrKey: id, comment: msg+ ' in '+stageName, site: 'JIRA'
             }
         }
     }
