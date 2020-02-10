@@ -12,7 +12,7 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Build stage'
-			comment_issues()
+			comment_issues('${STAGE_NAME}')
          }
       }
       stage('Deploy') {
@@ -20,19 +20,14 @@ pipeline {
             git 'https://github.com/rsud79/HelloWorld.git'
             sh "mvn clean install"
 			echo 'Completed Deploy stage'
-			comment_issues()
+			comment_issues('${STAGE_NAME}')
          }
       }
-      //stage('JIRA') {
-      //    steps {
-      //        comment_issues()
-      //    }
-      //}
    }
 }
 
 @NonCPS
-void comment_issues() {
+void comment_issues(stageName) {
     def issue_pattern = "LP-\\d+"
 
     // Find all relevant commit ids
@@ -42,7 +37,7 @@ void comment_issues() {
             echo msg
             msg.findAll(issue_pattern).each {
                 // Actually post a comment
-                id -> jiraAddComment idOrKey: id, comment: msg+ 'in '+'${STAGE_NAME}', site: 'JIRA'
+                id -> jiraAddComment idOrKey: id, comment: msg+ 'in '+stageName, site: 'JIRA'
             }
         }
     }
