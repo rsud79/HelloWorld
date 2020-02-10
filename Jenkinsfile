@@ -21,5 +21,25 @@ pipeline {
 			echo 'Completed Deploy stage'
          }
       }
+      stage('JIRA') {
+          steps {
+              comment_issues()
+          }
+      }
    }
+}
+
+void comment_issues() {
+    def issue_pattern = "LP-\\d+"
+
+    // Find all relevant commit ids
+    currentBuild.changeSets.each {changeSet ->
+        changeSet.each { commit ->
+            String msg = commit.getMsg()
+            msg.findAll(issue_pattern).each {
+                // Actually post a comment
+                id -> jiraAddComment idOrKey: id, comment: 'Hi there!'
+            }
+        }
+    }
 }
