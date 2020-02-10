@@ -1,25 +1,18 @@
 pipeline {
-    agent any
-    
-    environment {
-    //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
-    IMAGE = readMavenPom().getArtifactId()
-    VERSION = readMavenPom().getVersion()
-    //echo "IMAGE: ${IMAGE}"
-    //echo "VERSION: ${VERSION}"
-    }
+   agent any
 
-    stages {
-        stage ('Compile Stage') {
+   tools {
+      // Install the Maven version configured as "M3" and add it to the path.
+      maven "Default"
+   }
 
-            steps {
-                withMaven(maven : "${VERSION}") {
-                    echo 'hello'
-                    echo "${VERSION}"
-                    //sh 'mvn clean install'
-                    sh 'printenv'
-                }
-            }
-        }
-    }
+   stages {
+      stage('Build') {
+         steps {
+            git 'https://github.com/rsud79/HelloWorld.git'
+            sh "mvn clean install"
+			echo 'Complete'
+         }
+      }
+   }
 }
