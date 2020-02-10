@@ -17,7 +17,7 @@ pipeline {
 			    echo last_started
 			}
 
-			comment_issues('${last_started}')
+			comment_issues(last_started)
          }
       }
       stage('Deploy') {
@@ -30,7 +30,7 @@ pipeline {
 			    echo last_started
 			    
 			}
-			comment_issues('${last_started}')
+			comment_issues(last_started)
          }
       }
    }
