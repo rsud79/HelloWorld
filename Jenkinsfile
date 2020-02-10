@@ -5,6 +5,8 @@ pipeline {
     //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
     IMAGE = readMavenPom().getArtifactId()
     VERSION = readMavenPom().getVersion()
+    echo "IMAGE: ${IMAGE}"
+    echo "VERSION: ${VERSION}"
     }
 
     stages {
@@ -17,20 +19,11 @@ pipeline {
             }
         }
 
-        stage ('Testing Stage') {
+        stage ('Install Stage') {
 
             steps {
                 withMaven(maven : "${VERSION}") {
-                    sh 'mvn test'
-                }
-            }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : "${VERSION}") {
-                    sh 'mvn deploy'
+                    sh 'mvn clean install'
                 }
             }
         }
