@@ -39,7 +39,7 @@ void comment_issues() {
             echo msg
             msg.findAll(issue_pattern).each {
                 // Actually post a comment
-                id -> jiraAddComment idOrKey: id, comment: 'Hi there!', site: 'http://localhost:8080/'
+                id -> jiraAddComment idOrKey: id, comment: 'Hi there!', site: 'JIRA'
             }
         }
     }
