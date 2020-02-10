@@ -42,7 +42,7 @@ void comment_issues() {
             echo msg
             msg.findAll(issue_pattern).each {
                 // Actually post a comment
-                id -> jiraAddComment idOrKey: id, comment: msg, site: 'JIRA'
+                id -> jiraAddComment idOrKey: id, comment: msg+ 'in '+'${STAGE_NAME}', site: 'JIRA'
             }
         }
     }
