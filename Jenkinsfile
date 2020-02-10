@@ -18,10 +18,5 @@ pipeline {
                 }
             }
         }
-
-        stage ('Install Stage') {
-            echo sh(script: 'env|sort', returnStdout: true)
-            
-        }
     }
 }
