@@ -1,11 +1,17 @@
 pipeline {
     agent any
+    
+    environment {
+    //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
+    IMAGE = readMavenPom().getArtifactId()
+    VERSION = readMavenPom().getVersion()
+    }
 
     stages {
         stage ('Compile Stage') {
 
             steps {
-                withMaven(maven : 'maven-3') {
+                withMaven(maven : "${VERSION}") {
                     sh 'mvn clean compile'
                 }
             }
@@ -14,7 +20,7 @@ pipeline {
         stage ('Testing Stage') {
 
             steps {
-                withMaven(maven : 'maven-3') {
+                withMaven(maven : "${VERSION}") {
                     sh 'mvn test'
                 }
             }
@@ -23,7 +29,7 @@ pipeline {
 
         stage ('Deployment Stage') {
             steps {
-                withMaven(maven : 'maven-3') {
+                withMaven(maven : "${VERSION}") {
                     sh 'mvn deploy'
                 }
             }
