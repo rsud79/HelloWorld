@@ -31,6 +31,7 @@ pipeline {
    }
 }
 
+@NonCPS
 void comment_issues() {
     def issue_pattern = "LP-\\d+"
 
