@@ -16,7 +16,7 @@ pipeline {
                 withMaven(maven : "${VERSION}") {
                     echo 'hello'
                     echo "${VERSION}"
-                    sh 'mvn clean install'
+                    //sh 'mvn clean install'
                 }
             }
         }
